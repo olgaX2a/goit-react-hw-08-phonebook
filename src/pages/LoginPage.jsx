@@ -1,18 +1,38 @@
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { logIn } from "../redux/auth/auth-operations";
 
-const styles = {
-  form: {
-    width: 320,
-  },
-  label: {
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    marginBottom: 15,
+    alignItems: "center",
   },
-};
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 function LoginPage() {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,39 +50,63 @@ function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch(authOperations.logIn({ email, password }));
+    dispatch(logIn({ email, password }));
     setEmail("");
     setPassword("");
   };
 
   return (
-    <div>
-      <h1>Страница логина</h1>
-
-      <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
-        <label style={styles.label}>
-          Почта
-          <input
-            type="email"
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <ExitToAppOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Login
+        </Typography>
+        <form
+          className={classes.form}
+          noValidate
+          onSubmit={handleSubmit}
+          autoComplete="off"
+        >
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
             name="email"
+            autoFocus
             value={email}
             onChange={handleChange}
           />
-        </label>
-
-        <label style={styles.label}>
-          Пароль
-          <input
-            type="password"
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
             name="password"
+            label="Password"
+            type="password"
+            id="password"
             value={password}
             onChange={handleChange}
           />
-        </label>
-
-        <button type="submit">Войти</button>
-      </form>
-    </div>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Login
+          </Button>
+        </form>
+      </div>
+    </Container>
   );
 }
 

@@ -1,0 +1,18 @@
+.Navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: rgba(202, 196, 176, 0.5);
+  margin: 0;
+}
+.NavigationMenu,
+.NavigationAuth {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: -20px;
+}
+.NavigationLink {
+  margin-left: 20px;
+}
