@@ -2,13 +2,16 @@ import { NavLink } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import styles from "./Navigation.module.css";
 
+import UserMenu from "../UserMenu/UserMenu";
+
 import { useSelector, useDispatch } from "react-redux";
-import { getLoggedIn } from "../../redux/auth/auth-selectors";
+import { getLoggedIn, getLoggedEmail } from "../../redux/auth/auth-selectors";
 import { logOut } from "../../redux/auth/auth-operations";
 
 function Navigation() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(getLoggedIn);
+  const loggedEmail = useSelector(getLoggedEmail);
   return (
     <header className={styles.Navigation}>
       <div className={styles.NavigationMenu}>
@@ -27,13 +30,16 @@ function Navigation() {
       </div>
 
       {isLoggedIn ? (
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => dispatch(logOut())}
-        >
-          Logout
-        </Button>
+        <div className={styles.NavigationAuth}>
+          <UserMenu email={loggedEmail} />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => dispatch(logOut())}
+          >
+            Logout
+          </Button>
+        </div>
       ) : (
         <div className={styles.NavigationAuth}>
           <NavLink className={styles.NavigationLink} to="/login">

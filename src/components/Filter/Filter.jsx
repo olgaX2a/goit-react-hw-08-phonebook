@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
 import { getFilter } from "../../redux/phonebook/phonebook-selectors";
-// import { filterContact } from "../../redux/phonebook/filterReducer";
 import { filterContact } from "../../redux/phonebook/phonebook-actions";
 
 import SearchIcon from "@material-ui/icons/Search";

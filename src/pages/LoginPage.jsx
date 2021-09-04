@@ -34,8 +34,8 @@ const useStyles = makeStyles((theme) => ({
 function LoginPage() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("olololo@mail.com");
-  const [password, setPassword] = useState("123olololo123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
