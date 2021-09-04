@@ -1,5 +1,3 @@
-import { createAction } from "@reduxjs/toolkit";
+import { createAction } from '@reduxjs/toolkit'
 
-export const addContact = createAction("phonebook/addContact");
-export const deleteContact = createAction("phonebook/deleteContact");
-export const filterContact = createAction("phonebook/filterContact");
+export const filterContact = createAction('phonebook/filterContact')

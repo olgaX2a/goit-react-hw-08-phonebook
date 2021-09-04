@@ -1,6 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { getFilter } from "../../redux/phonebook/phonebook-selectors";
-import { filterContact } from "../../redux/phonebook/filterReducer";
+// import { filterContact } from "../../redux/phonebook/filterReducer";
+import { filterContact } from "../../redux/phonebook/phonebook-actions";
+
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -18,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Filter = () => {
   const classes = useStyles();
+
   const dispatch = useDispatch();
   const filterValue = useSelector(getFilter);
   const onFilterChange = (event) => {

@@ -1,5 +1,4 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
-// import { setupListeners } from '@reduxjs/toolkit/query'
 import logger from 'redux-logger'
 import {
   persistStore,
@@ -13,10 +12,8 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-// import { phonebookApi } from './phonebook/phonebookApi'
-// import { filterReducer } from './phonebook/filterReducer'
 import { phonebookReducer } from './phonebook/phonebook-reducers'
-import authReduser from './auth/auth-slices'
+import authReducer from './auth/auth-slices'
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -34,11 +31,10 @@ const authPersistConfig = {
 const store = configureStore({
   reducer: {
     phonebook: phonebookReducer,
-    auth: persistReducer(authPersistConfig, authReduser),
+    auth: persistReducer(authPersistConfig, authReducer),
   },
   middleware,
-  // devTools: process.env.NODE_ENV !== 'production',
-  devTools: true,
+  devTools: process.env.NODE_ENV !== 'production',
 })
 
 const persistor = persistStore(store)

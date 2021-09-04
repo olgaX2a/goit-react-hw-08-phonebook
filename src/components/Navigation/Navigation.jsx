@@ -2,7 +2,13 @@ import { NavLink } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import styles from "./Navigation.module.css";
 
+import { useSelector, useDispatch } from "react-redux";
+import { getLoggedIn } from "../../redux/auth/auth-selectors";
+import { logOut } from "../../redux/auth/auth-operations";
+
 function Navigation() {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(getLoggedIn);
   return (
     <header className={styles.Navigation}>
       <div className={styles.NavigationMenu}>
@@ -11,24 +17,37 @@ function Navigation() {
             home
           </Button>
         </NavLink>
-        <NavLink className={styles.NavigationLink} to="/contacts">
-          <Button variant="contained" color="primary">
-            contacts
-          </Button>
-        </NavLink>
+        {isLoggedIn && (
+          <NavLink className={styles.NavigationLink} to="/contacts">
+            <Button variant="contained" color="primary">
+              contacts
+            </Button>
+          </NavLink>
+        )}
       </div>
-      <div className={styles.NavigationAuth}>
-        <NavLink className={styles.NavigationLink} to="/login">
-          <Button variant="contained" color="primary">
-            login
-          </Button>
-        </NavLink>
-        <NavLink className={styles.NavigationLink} to="/register">
-          <Button variant="contained" color="primary">
-            register
-          </Button>
-        </NavLink>
-      </div>
+
+      {isLoggedIn ? (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => dispatch(logOut())}
+        >
+          Logout
+        </Button>
+      ) : (
+        <div className={styles.NavigationAuth}>
+          <NavLink className={styles.NavigationLink} to="/login">
+            <Button variant="contained" color="primary">
+              login
+            </Button>
+          </NavLink>
+          <NavLink className={styles.NavigationLink} to="/register">
+            <Button variant="contained" color="primary">
+              register
+            </Button>
+          </NavLink>
+        </div>
+      )}
     </header>
   );
 }
