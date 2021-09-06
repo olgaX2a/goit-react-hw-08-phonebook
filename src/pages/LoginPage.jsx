@@ -37,7 +37,13 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // const [user, setUser] = useState({
+  //   email: "",
+  //   password: "",
+  // });
+
   const handleChange = ({ target: { name, value } }) => {
+    // setUser((prev) => ({ ...prev, [name]: value }));
     switch (name) {
       case "email":
         return setEmail(value);
@@ -51,8 +57,8 @@ function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(logIn({ email, password }));
-    setEmail("");
-    setPassword("");
+    // setEmail("");
+    // setPassword("");
   };
 
   return (

@@ -12,6 +12,7 @@ function Navigation() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(getLoggedIn);
   const loggedEmail = useSelector(getLoggedEmail);
+
   return (
     <header className={styles.Navigation}>
       <div className={styles.NavigationMenu}>

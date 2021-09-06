@@ -35,10 +35,10 @@ const authReducer = createSlice({
       },
       token: null,
     }),
-    [getCurrentUser.fulfilled]: (state, { payload }) => ({
+    [getCurrentUser.fulfilled]: (state, action) => ({
       ...state,
       isLoggedIn: true,
-      user: payload.user,
+      user: action.payload,
       isFetchingCurrentUser: false,
     }),
     [getCurrentUser.pending]: (state) => ({
