@@ -34,29 +34,29 @@ const useStyles = makeStyles((theme) => ({
 function RegisterPage() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
   const handleChange = ({ target: { name, value } }) => {
-    switch (name) {
-      case "name":
-        return setName(value);
-      case "email":
-        return setEmail(value);
-      case "password":
-        return setPassword(value);
-      default:
-        return;
-    }
+    setUser((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const resetForm = () => {
+    setUser(() => ({
+      email: "",
+      number: "",
+      password: "",
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(register({ name, email, password }));
-    setName("");
-    setEmail("");
-    setPassword("");
+    dispatch(register(user));
+    resetForm();
   };
 
   return (
@@ -84,7 +84,7 @@ function RegisterPage() {
             label="Name"
             name="name"
             autoFocus
-            value={name}
+            value={user.name}
             onChange={handleChange}
           />
           <TextField
@@ -95,7 +95,7 @@ function RegisterPage() {
             id="email"
             label="Email Address"
             name="email"
-            value={email}
+            value={user.email}
             onChange={handleChange}
           />
           <TextField
@@ -107,7 +107,7 @@ function RegisterPage() {
             label="Password"
             type="password"
             id="password"
-            value={password}
+            value={user.password}
             onChange={handleChange}
           />
           <Button

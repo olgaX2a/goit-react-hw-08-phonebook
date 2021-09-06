@@ -31,29 +31,21 @@ function ContactForm() {
   const dispatch = useDispatch();
   const data = useSelector(getContacts);
 
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
+  const [user, setUser] = useState({
+    name: "",
+    number: "",
+  });
 
   const handleChangeUserInfo = (event) => {
     const { name, value } = event.target;
-
-    switch (name) {
-      case "name":
-        setName(value.trim());
-        break;
-
-      case "number":
-        setNumber(value.trim());
-        break;
-
-      default:
-        return;
-    }
+    setUser((prev) => ({ ...prev, [name]: value }));
   };
 
   const resetForm = () => {
-    setName("");
-    setNumber("");
+    setUser(() => ({
+      name: "",
+      number: "",
+    }));
   };
 
   const isInContactList = (contact) => {
@@ -67,13 +59,8 @@ function ContactForm() {
   const handleUserFormSubmit = (event) => {
     event.preventDefault();
 
-    const contact = {
-      name: name,
-      number: number,
-    };
-
-    if (!isInContactList(contact)) {
-      dispatch(addContact(contact));
+    if (!isInContactList(user)) {
+      dispatch(addContact(user));
       resetForm();
     } else {
       return alert("This contact is already in contact list!");
@@ -95,7 +82,7 @@ function ContactForm() {
               fullWidth
               autoComplete="off"
               type="text"
-              value={name}
+              value={user.name}
               inputProps={{
                 pattern:
                   "^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$",
@@ -120,7 +107,7 @@ function ContactForm() {
               autoComplete="off"
               onChange={handleChangeUserInfo}
               type="tel"
-              value={number}
+              value={user.number}
               inputProps={{
                 pattern:
                   "\\+?\\d{1,4}?[-.\\s]?\\(?\\d{1,3}?\\)?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}",

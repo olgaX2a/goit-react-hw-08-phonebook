@@ -34,31 +34,19 @@ const useStyles = makeStyles((theme) => ({
 function LoginPage() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  // const [user, setUser] = useState({
-  //   email: "",
-  //   password: "",
-  // });
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
 
   const handleChange = ({ target: { name, value } }) => {
-    // setUser((prev) => ({ ...prev, [name]: value }));
-    switch (name) {
-      case "email":
-        return setEmail(value);
-      case "password":
-        return setPassword(value);
-      default:
-        return;
-    }
+    setUser((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(logIn({ email, password }));
-    // setEmail("");
-    // setPassword("");
+    dispatch(logIn(user));
   };
 
   return (
@@ -86,7 +74,7 @@ function LoginPage() {
             label="Email Address"
             name="email"
             autoFocus
-            value={email}
+            value={user.email}
             onChange={handleChange}
           />
           <TextField
@@ -98,7 +86,7 @@ function LoginPage() {
             label="Password"
             type="password"
             id="password"
-            value={password}
+            value={user.password}
             onChange={handleChange}
           />
           <Button
